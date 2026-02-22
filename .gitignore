@@ -1,0 +1,10 @@
+### macOS ###
+# General
+.DS_Store
+### Node ###
+# Logs
+logs
+*.log
+.pnpm-debug.log*
+# Dependency directories
+node_modules/

@@ -4,14 +4,15 @@
   "description": "",
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+"scripts": {
+  "update-ytdlp": "curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o ./node_modules/youtube-dl-exec/bin/yt-dlp && chmod +x ./node_modules/youtube-dl-exec/bin/yt-dlp",
+  "postinstall": "npm run update-ytdlp"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "debug": "^4.4.3",
-    "youtube-dl-exec": "^3.0.29"
+    "youtube-dl-exec": "^3.1.3"
   }
 }

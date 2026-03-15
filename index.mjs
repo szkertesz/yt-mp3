@@ -15,14 +15,14 @@ if (!videoUrl) {
 }
 
 try {
-  const output = await youtubedl(videoUrl, {
-    userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
-    cookiesFromBrowser: "chrome",
-    extractAudio: true,
-    audioFormat: 'mp3',
-    jsRuntimes: 'node',
-    output: path.join(downloadsFolder, '%(title)s.%(ext)s'),
-  });
+const output = await youtubedl(videoUrl, {
+  cookiesFromBrowser: "chrome",
+  extractAudio: true,
+  audioFormat: 'mp3',
+  output: path.join(downloadsFolder, '%(title)s.%(ext)s'),
+  'extractor-args': 'youtube:player_client=web',
+  jsRuntimes: 'node',
+});
 
   console.log(`✅ MP3 saved in your Downloads folder: ${downloadsFolder}`);
 } catch (error) {

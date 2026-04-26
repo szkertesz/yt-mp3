@@ -1,8 +1,8 @@
-import youtubedl from 'youtube-dl-exec';
 import os from 'os';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { create } from 'youtube-dl-exec';
 
+const ytdl = create('/usr/local/bin/yt-dlp'); // path from: which yt-dlp
 // Dynamically get Downloads folder path
 const downloadsFolder = path.join(os.homedir(), 'Downloads');
 
@@ -15,18 +15,18 @@ if (!videoUrl) {
 }
 
 try {
-const output = await youtubedl(videoUrl, {
-  cookiesFromBrowser: "chrome",
-  extractAudio: true,
-  audioFormat: 'mp3',
-  output: path.join(downloadsFolder, '%(title)s.%(ext)s'),
-  'extractor-args': 'youtube:player_client=web',
-  jsRuntimes: 'node',
-});
+  await ytdl(videoUrl, {
+    cookiesFromBrowser: 'chrome',
+    extractAudio: true,
+    audioFormat: 'mp3',
+    output: path.join(downloadsFolder, '%(title)s.%(ext)s'),
+  });
 
   console.log(`✅ MP3 saved in your Downloads folder: ${downloadsFolder}`);
 } catch (error) {
   console.error('❌ Error:', error);
 }
 
-// node extract.mjs "https://www.youtube.com/watch?v=abc123"
+/* brew install yt-dlp
+# or if already installed:
+brew upgrade yt-dlp */

@@ -20,6 +20,8 @@ try {
     extractAudio: true,
     audioFormat: 'mp3',
     output: path.join(downloadsFolder, '%(title)s.%(ext)s'),
+    // yt-dlp --remote-components ejs:github --cookies-from-browser chrome --extract-audio --audio-format mp3 --output "$HOME/Downloads/%(title)s.%(ext)s" "https://www.youtube.com/watch?v=Wf_1Y2UYPXQ"
+    remoteComponents: 'ejs:github',
   });
 
   console.log(`✅ MP3 saved in your Downloads folder: ${downloadsFolder}`);

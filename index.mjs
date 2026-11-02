@@ -1,8 +1,7 @@
 import os from 'os';
 import path from 'path';
-import { create } from 'youtube-dl-exec';
+import ytdl from 'youtube-dl-exec';
 
-const ytdl = create('/usr/local/bin/yt-dlp'); // path from: which yt-dlp
 // Dynamically get Downloads folder path
 const downloadsFolder = path.join(os.homedir(), 'Downloads');
 
@@ -16,10 +15,12 @@ if (!videoUrl) {
 
 try {
   await ytdl(videoUrl, {
-    cookiesFromBrowser: 'chrome',
     extractAudio: true,
     audioFormat: 'mp3',
     output: path.join(downloadsFolder, '%(title)s.%(ext)s'),
+    ...(process.env.YTDLP_COOKIES_FROM_BROWSER
+      ? { cookiesFromBrowser: process.env.YTDLP_COOKIES_FROM_BROWSER }
+      : {}),
     // yt-dlp --remote-components ejs:github --cookies-from-browser chrome --extract-audio --audio-format mp3 --output "$HOME/Downloads/%(title)s.%(ext)s" "https://www.youtube.com/watch?v=Wf_1Y2UYPXQ"
     remoteComponents: 'ejs:github',
   });
@@ -27,8 +28,5 @@ try {
   console.log(`✅ MP3 saved in your Downloads folder: ${downloadsFolder}`);
 } catch (error) {
   console.error('❌ Error:', error);
+  process.exitCode = 1;
 }
-
-/* brew install yt-dlp
-# or if already installed:
-brew upgrade yt-dlp */

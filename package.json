@@ -1,18 +1,27 @@
 {
   "name": "yt-mp3",
   "version": "1.0.0",
-  "description": "",
+  "description": "Download YouTube audio as MP3 files",
+  "private": true,
   "type": "module",
-  "main": "index.js",
-"scripts": {
-  "update-ytdlp": "curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o ./node_modules/youtube-dl-exec/bin/yt-dlp && chmod +x ./node_modules/youtube-dl-exec/bin/yt-dlp",
-  "postinstall": "npm run update-ytdlp"
-},
-  "keywords": [],
-  "author": "",
+  "packageManager": "pnpm@9.13.2",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "pnpm": {
+    "packageExtensions": {
+      "debug-logfmt@*": {
+        "dependencies": {
+          "debug": "^4.4.3"
+        }
+      }
+    }
+  },
   "license": "ISC",
   "dependencies": {
-    "debug": "^4.4.3",
     "youtube-dl-exec": "^3.1.3"
   }
 }
